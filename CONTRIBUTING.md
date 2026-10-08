@@ -25,7 +25,7 @@ plant-kg pipeline --profile fixture
 
 ## Before opening a pull request
 
-Run the same checks used in continuous integration:
+Run the code checks before opening a pull request:
 
 ```bash
 ruff format --check .
@@ -40,6 +40,10 @@ downloads, generated full-data tables, credentials, or local Neo4j state.
 
 Integration tests clear the configured database. Use a disposable instance and
 explicitly enable the reset. In PowerShell set `$env:NEO4J_TEST_ALLOW_RESET='1'`.
+
+Changes to packaging or bundled resources also need the
+[release checks](docs/releasing.md). CI builds the distributions, installs the wheel
+outside the checkout, audits runtime dependencies and runs the fixture graph workflow.
 
 ## Scientific changes
 

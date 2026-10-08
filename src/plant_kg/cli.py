@@ -10,11 +10,13 @@ from pathlib import Path
 
 from neo4j import GraphDatabase
 
+from plant_kg import __version__
 from plant_kg.download import download_sources
 from plant_kg.graph.loader import load_graph
 from plant_kg.graph.schema import apply_schema
 from plant_kg.graph.validation import run_validations
-from plant_kg.pipeline import PROJECT_ROOT, build_fixture, build_full
+from plant_kg.paths import RESOURCE_ROOT, workspace_root
+from plant_kg.pipeline import build_fixture, build_full
 from plant_kg.sources import load_sources
 
 
@@ -30,23 +32,25 @@ def _parser() -> argparse.ArgumentParser:
         prog="plant-kg",
         description="Build and validate an Arabidopsis metal-homeostasis knowledge graph.",
     )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+    project_root = workspace_root()
     commands = parser.add_subparsers(dest="command", required=True)
 
     download = commands.add_parser("download", help="Download full public source datasets")
-    download.add_argument("--sources", type=Path, default=PROJECT_ROOT / "config/sources.toml")
-    download.add_argument("--raw-dir", type=Path, default=PROJECT_ROOT / "data/raw")
+    download.add_argument("--sources", type=Path, default=RESOURCE_ROOT / "config/sources.toml")
+    download.add_argument("--raw-dir", type=Path, default=project_root / "data/raw")
 
     prepare = commands.add_parser("prepare", help="Normalize source data into graph tables")
     prepare.add_argument("--profile", choices=("fixture", "full"), required=True)
     prepare.add_argument("--raw-dir", type=Path)
-    prepare.add_argument("--output-dir", type=Path, default=PROJECT_ROOT / "data/processed")
-    prepare.add_argument("--sources", type=Path, default=PROJECT_ROOT / "config/sources.toml")
+    prepare.add_argument("--output-dir", type=Path, default=project_root / "data/processed")
+    prepare.add_argument("--sources", type=Path, default=RESOURCE_ROOT / "config/sources.toml")
 
     schema = commands.add_parser("schema", help="Apply Neo4j constraints and indexes")
     _connection_arguments(schema)
 
     load = commands.add_parser("load", help="Load normalized graph tables")
-    load.add_argument("--data-dir", type=Path, default=PROJECT_ROOT / "data/processed")
+    load.add_argument("--data-dir", type=Path, default=project_root / "data/processed")
     load.add_argument("--batch-size", type=int, default=1_000)
     _connection_arguments(load)
 
@@ -58,8 +62,8 @@ def _parser() -> argparse.ArgumentParser:
     )
     pipeline.add_argument("--profile", choices=("fixture", "full"), required=True)
     pipeline.add_argument("--raw-dir", type=Path)
-    pipeline.add_argument("--output-dir", type=Path, default=PROJECT_ROOT / "data/processed")
-    pipeline.add_argument("--sources", type=Path, default=PROJECT_ROOT / "config/sources.toml")
+    pipeline.add_argument("--output-dir", type=Path, default=project_root / "data/processed")
+    pipeline.add_argument("--sources", type=Path, default=RESOURCE_ROOT / "config/sources.toml")
     pipeline.add_argument("--batch-size", type=int, default=1_000)
     _connection_arguments(pipeline)
     return parser
@@ -67,9 +71,9 @@ def _parser() -> argparse.ArgumentParser:
 
 def _prepare(args: argparse.Namespace) -> dict[str, int]:
     if args.profile == "fixture":
-        raw_dir = args.raw_dir or PROJECT_ROOT / "data/fixtures/raw"
+        raw_dir = args.raw_dir or RESOURCE_ROOT / "data/fixtures/raw"
         return build_fixture(raw_dir, args.output_dir, args.sources)
-    raw_dir = args.raw_dir or PROJECT_ROOT / "data/raw"
+    raw_dir = args.raw_dir or workspace_root() / "data/raw"
     return build_full(raw_dir, args.output_dir, args.sources)
 
 
@@ -100,7 +104,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.command == "schema":
         with _driver(args) as driver:
-            apply_schema(driver, PROJECT_ROOT / "cypher", database=args.database)
+            apply_schema(driver, RESOURCE_ROOT / "cypher", database=args.database)
         print("Neo4j schema is ready.")
         return 0
     if args.command == "load":
@@ -113,21 +117,21 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "validate":
         with _driver(args) as driver:
             results = run_validations(
-                driver, PROJECT_ROOT / "cypher/validation", database=args.database
+                driver, RESOURCE_ROOT / "cypher/validation", database=args.database
             )
         return 0 if _print_validations(results) else 1
     if args.command == "pipeline":
         if args.profile == "full":
-            raw_dir = args.raw_dir or PROJECT_ROOT / "data/raw"
+            raw_dir = args.raw_dir or workspace_root() / "data/raw"
             manifest = download_sources(load_sources(args.sources), raw_dir)
             print(json.dumps(manifest, indent=2, sort_keys=True))
         counts = _prepare(args)
         print(json.dumps(counts, indent=2, sort_keys=True))
         with _driver(args) as driver:
-            apply_schema(driver, PROJECT_ROOT / "cypher", database=args.database)
+            apply_schema(driver, RESOURCE_ROOT / "cypher", database=args.database)
             load_graph(driver, args.output_dir, database=args.database, batch_size=args.batch_size)
             results = run_validations(
-                driver, PROJECT_ROOT / "cypher/validation", database=args.database
+                driver, RESOURCE_ROOT / "cypher/validation", database=args.database
             )
         return 0 if _print_validations(results) else 1
     raise AssertionError(f"Unhandled command: {args.command}")

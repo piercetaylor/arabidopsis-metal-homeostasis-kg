@@ -8,14 +8,29 @@ version = "0.1.0"
 description = "A reproducible Neo4j knowledge graph for Arabidopsis metal-homeostasis networks"
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Pierce Taylor" }]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
 dependencies = [
   "neo4j>=5.26,<6",
   "requests>=2.32,<3",
 ]
 
 [project.optional-dependencies]
+release = [
+  "build>=1.2,<2",
+  "twine>=6,<7",
+  "pip-audit>=2.9,<3",
+]
 dev = [
   "pytest>=8.3,<9",
   "pytest-cov>=6,<7",
@@ -25,8 +40,31 @@ dev = [
 [project.scripts]
 plant-kg = "plant_kg.cli:main"
 
+[project.urls]
+Repository = "https://github.com/piercetaylor/arabidopsis-metal-homeostasis-kg"
+Issues = "https://github.com/piercetaylor/arabidopsis-metal-homeostasis-kg/issues"
+Documentation = "https://github.com/piercetaylor/arabidopsis-metal-homeostasis-kg/tree/main/docs"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/plant_kg"]
+core-metadata-version = "2.4"
+
+[tool.hatch.build.targets.wheel.force-include]
+"config" = "plant_kg/resources/config"
+"cypher" = "plant_kg/resources/cypher"
+"data/fixtures/raw" = "plant_kg/resources/data/fixtures/raw"
+"data/README.md" = "plant_kg/resources/data/README.md"
+"docs/data-provenance.md" = "plant_kg/resources/docs/data-provenance.md"
+
+[tool.hatch.build.targets.sdist]
+core-metadata-version = "2.4"
+only-include = [
+  "src", "config", "cypher", "data/fixtures/raw", "data/README.md", "docs",
+  "tests", "scripts", ".github", "pyproject.toml", "README.md", "LICENSE",
+  "CHANGELOG.md", "CITATION.cff", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md",
+  "SECURITY.md", "requirements-runtime.txt", "docker-compose.yml", ".env.example", ".gitignore",
+  ".gitattributes", ".editorconfig",
+]
 
 [tool.pytest.ini_options]
 addopts = "-ra --strict-markers --basetemp=.pytest-tmp"

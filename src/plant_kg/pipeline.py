@@ -11,9 +11,8 @@ from plant_kg.adapters.araport import iter_genes
 from plant_kg.adapters.dap_seq import infer_targets
 from plant_kg.adapters.jaspar import normalize_motifs
 from plant_kg.adapters.y2h import normalize_interactions
+from plant_kg.paths import RESOURCE_ROOT
 from plant_kg.sources import SourceSpec, load_sources
-
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 def _write_csv(path: Path, fieldnames: Sequence[str], rows: Iterable[Mapping[str, object]]) -> int:
@@ -62,7 +61,7 @@ def _build_tables(
     for row in y2h_rows:
         row["dataset_id"] = source_by_key["y2h"].dataset_id
 
-    focus = _read_tsv(PROJECT_ROOT / "config" / "metal_focus.tsv")
+    focus = _read_tsv(RESOURCE_ROOT / "config" / "metal_focus.tsv")
     known_ids = {str(row["gene_id"]) for row in genes}
     focus = [row for row in focus if row["gene_id"] in known_ids]
 
@@ -164,7 +163,7 @@ def _build_tables(
 def build_fixture(
     raw_dir: Path,
     output_dir: Path,
-    sources_path: Path = PROJECT_ROOT / "config" / "sources.toml",
+    sources_path: Path = RESOURCE_ROOT / "config" / "sources.toml",
 ) -> dict[str, int]:
     """Build deterministic normalized tables from small source-shaped fixtures."""
 

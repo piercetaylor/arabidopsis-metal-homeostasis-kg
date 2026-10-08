@@ -1,9 +1,19 @@
 import csv
 from pathlib import Path
 
+import pytest
+
+from plant_kg import __version__
 from plant_kg.cli import main
 
 FIXTURES = Path(__file__).parents[1] / "data" / "fixtures" / "raw"
+
+
+def test_cli_reports_package_version(capsys) -> None:
+    with pytest.raises(SystemExit) as result:
+        main(["--version"])
+    assert result.value.code == 0
+    assert capsys.readouterr().out.strip() == f"plant-kg {__version__}"
 
 
 def test_prepare_fixture_command_runs_the_normalization_seam(tmp_path: Path, capsys) -> None:

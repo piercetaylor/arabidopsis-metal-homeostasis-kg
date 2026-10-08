@@ -77,3 +77,5 @@ are starting points for queries, not a complete metal-homeostasis catalog.
 [Architecture](docs/architecture.md) · [Data dictionary](docs/data-dictionary.md) ·
 [Citation](CITATION.cff) · [MIT license](LICENSE). The license covers code and
 documentation; upstream data keep their own terms.
+
+Package installation and release checks are in the [release guide](docs/releasing.md).
