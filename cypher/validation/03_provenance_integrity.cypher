@@ -1,9 +1,9 @@
-CALL {
+CALL () {
   MATCH (n)
   WHERE (n:Gene OR n:Motif) AND NOT (n)-[:FROM_DATASET]->(:Dataset)
   RETURN count(n) AS nodes_without_provenance
 }
-CALL {
+CALL () {
   MATCH ()-[r]->()
   WHERE type(r) IN ['HAS_MOTIF', 'PUTATIVE_DAP_TARGET', 'Y2H_INTERACTS_WITH']
     AND (r.dataset_id IS NULL OR NOT EXISTS {
@@ -11,7 +11,7 @@ CALL {
     })
   RETURN count(r) AS edges_without_provenance
 }
-CALL {
+CALL () {
   MATCH (d:Dataset)
   WHERE d.source_url IS NULL OR d.license IS NULL OR d.citation IS NULL
   RETURN count(d) AS datasets_without_provenance

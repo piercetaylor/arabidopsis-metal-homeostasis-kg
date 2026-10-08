@@ -1,0 +1,29 @@
+{
+  "retrieved_at_utc": "2026-10-08T00:19:29.293904+00:00",
+  "artifacts": {
+    "araport11-20241001": {
+      "bytes": 16479936,
+      "filename": "Araport11_GFF3_genes_transposons.20241001.gff.gz",
+      "sha256": "ed470fe3a7f58cbaed4bcb2fe45a93e3d067e70f894f641f173526ea3f8257d9",
+      "url": "https://zenodo.org/records/17371665/files/Araport11_GFF3_genes_transposons.20241001.gff.gz?download=1"
+    },
+    "geo-gse60141": {
+      "bytes": 81039360,
+      "filename": "GSE60141_RAW.tar",
+      "sha256": "357a4226c395f3527beff3028a2e53cb22cd5c26e9129161b8b182a42c7469cf",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE60nnn/GSE60141/suppl/GSE60141_RAW.tar"
+    },
+    "interatome-1.1": {
+      "bytes": 386036,
+      "filename": "interatome.tsv",
+      "sha256": "d13ec84b523869df351dcfad79a8a92f30e2a5c6e95f06cd137d6ad1b2cd3f09",
+      "url": "https://entrepot.recherche.data.gouv.fr/api/access/datafile/100278"
+    },
+    "jaspar-2026-core-arabidopsis": {
+      "bytes": 1070847,
+      "filename": "jaspar_arabidopsis.json",
+      "sha256": "664c3a67935ead406a998c2fe0900489c09918c3bcbb4711d92cd6083f32e904",
+      "url": "https://jaspar.elixir.no/api/v1/matrix/?collection=CORE&tax_group=plants&tax_id=3702&version=latest&page_size=1000"
+    }
+  }
+}

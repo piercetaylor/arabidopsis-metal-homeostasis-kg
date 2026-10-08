@@ -10,8 +10,8 @@ is used and what the project does to it.
 - The downloader writes a local `download-manifest.json` with the retrieval time,
   source URL, byte size, and SHA-256 digest of each artifact.
 - Normalized full-data outputs under `data/processed/` are also ignored.
-- Repository fixtures are hand-authored and source-shaped. They test contracts but
-  are not samples copied from the full datasets.
+- Fixture relationships, coordinates, and scores are synthetic and source-shaped.
+  The small public JASPAR bHLH34 profile is included with attribution under CC BY 4.0.
 - Publications and source accessions must be cited in downstream analyses. The
   repository MIT license does not relicense source data.
 

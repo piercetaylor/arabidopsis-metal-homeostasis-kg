@@ -11,8 +11,12 @@ This repository separates upstream downloads, generated tables, and test fixture
 
 The test fixtures use plausible formats and real-style AGI identifiers so that parser,
 coordinate, and graph behavior can be exercised. Their relationships, values, and
-scores are synthetic. They are not excerpts of the source datasets, are not evidence
-for biological claims, and must not be used for scientific analysis.
+scores are synthetic. The small JASPAR record includes the public bHLH34 profile
+[MA0962.2](https://jaspar.elixir.no/matrix/MA0962.2/) under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); attribution to JASPAR and
+its release publication appears in [data provenance](../docs/data-provenance.md).
+The fixture's cross-dataset relationships are software test cases and must not be
+used for scientific analysis.
 
 Run the fixture workflow without network access:
 

@@ -8,8 +8,8 @@ ORFeome-scale yeast two-hybrid interactions around metal-homeostasis genes.
 
 The project emphasizes traceable transformations and conservative biological
 claims. In particular, DAP-seq peaks are represented as **putative** targets only
-when they overlap a declared strand-aware promoter window. The bundled fixture is
-small and synthetic; full upstream datasets are downloaded on demand and never
+when they overlap a declared strand-aware promoter window. A small bundled fixture
+exercises the software; full upstream datasets are downloaded on demand and never
 committed to the repository.
 
 ## Architecture
@@ -94,6 +94,7 @@ access and disk space. Source locations are declared in `config/sources.toml`.
 ```bash
 plant-kg download
 plant-kg prepare --profile full
+plant-kg schema
 plant-kg load
 plant-kg validate
 ```
@@ -107,6 +108,14 @@ plant-kg pipeline --profile full
 Downloads are written under `data/raw/`; normalized tables are written under
 `data/processed/`. Both locations are ignored by Git. A download manifest records
 retrieval time, byte size, source URL, and SHA-256 for each retrieved artifact.
+
+The verified input snapshot is recorded in
+[source-snapshot.json](docs/verification/source-snapshot.json). JASPAR is a live API;
+compare its digest and retrieval date when reproducing an analysis.
+
+The [full-data verification](docs/verification/full-data-build.md) records a
+successful build with 33,318 genes, 598 motifs, 6,438 Y2H pairs, and 1,172,835
+putative DAP-seq target relationships. All four Cypher validation suites passed.
 
 ## Validation
 
