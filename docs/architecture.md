@@ -1,36 +1,17 @@
 # Architecture
 
-## Goals
+Four public datasets share one normalization and loading path. The offline fixture
+uses that same path, so tests exercise the source adapters and graph loader without
+contacting upstream hosts. Neo4j runs as a separate service; no plugins are needed.
 
-The system turns four heterogeneous public sources into a small, inspectable Neo4j
-graph without requiring Neo4j plugins or redistributing upstream data. The same
-normalization, loading, and validation paths are used for the deterministic fixture
-and for full data.
+![Public Araport11, DAP-seq, JASPAR and InterATOME records are normalized into tables and loaded into Neo4j for queries and integrity checks. The offline fixture enters at normalization.](assets/architecture.png)
 
-## Pipeline
+The network is schematic: it illustrates node types and evidence links, not a
+specific biological result. Gene nodes use AGI locus identifiers; Y2H endpoints
+are locus-level protein proxies. [ADR 0001](adr/0001-locus-level-protein-model.md)
+explains that choice.
 
-```mermaid
-flowchart TB
-    subgraph acquisition[Acquisition]
-      C[config/sources.toml] --> D[plant-kg download]
-      D --> R[data/raw - git ignored]
-      D --> A[download-manifest.json]
-    end
-
-    subgraph preparation[Preparation]
-      R --> P[Source adapters]
-      T[data/fixtures/raw] --> P
-      P --> N[Normalized CSV tables]
-    end
-
-    subgraph graph[Graph]
-      S[Cypher constraints and indexes] --> G[(Neo4j 5.26)]
-      N --> L[Batched parameterized loader]
-      L --> G
-      G --> V[Cypher validation queries]
-      G --> E[Example scientific queries]
-    end
-```
+## How the graph is built
 
 ### 1. Acquisition
 
@@ -61,15 +42,15 @@ Each adapter owns one external format:
 Adapters emit simple dictionaries. CSV writing centralizes column order, UTF-8
 encoding, LF line endings, and deterministic sorting.
 
-### 3. Normalized seam
+### 3. Normalized tables
 
-Seven normalized tables separate external parsing from graph persistence:
+Seven tables separate source parsing from graph loading:
 `datasets`, `genes`, `motifs`, `metal_focus`, `tf_motifs`, `dap_targets`, and
 `y2h_interactions`. Their contract is documented in
 [the data dictionary](data-dictionary.md).
 
-This seam keeps failures local: adapters can be tested without Neo4j, and the loader
-can be tested with small, stable CSVs rather than live upstream services.
+Adapters can be tested without Neo4j. The loader accepts these tables without
+needing to know the upstream formats.
 
 ### 4. Graph persistence
 
@@ -114,7 +95,7 @@ provides a pinned local Neo4j Community image and a named data volume.
 - GitHub Actions supplies Neo4j as an isolated service and does not contact upstream
   biological-data hosts.
 
-## Durable decisions
+## Design decisions
 
 - [ADR 0001](adr/0001-locus-level-protein-model.md): locus-level protein proxies
 - [ADR 0002](adr/0002-derived-dap-targets.md): promoter-overlap-derived DAP targets
