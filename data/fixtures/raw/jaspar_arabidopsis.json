@@ -1,0 +1,21 @@
+{
+  "source": "JASPAR 2026 CORE",
+  "results": [
+    {
+      "matrix_id": "MA0962.2",
+      "name": "bHLH34",
+      "collection": "CORE",
+      "tax_group": "plants",
+      "species": [{"tax_id": 3702, "name": "Arabidopsis thaliana"}],
+      "class": ["Basic helix-loop-helix factors (bHLH)"],
+      "family": ["bHLH"],
+      "data_type": "PBM",
+      "pfm": {
+        "A": [154, 0, 727, 0, 0, 0, 0],
+        "C": [39, 999, 0, 848, 0, 0, 0],
+        "G": [653, 0, 242, 0, 999, 0, 999],
+        "T": [154, 0, 31, 152, 0, 999, 0]
+      }
+    }
+  ]
+}

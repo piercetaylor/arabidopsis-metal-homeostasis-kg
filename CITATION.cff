@@ -1,0 +1,56 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it and the upstream datasets used in your analysis."
+title: "Arabidopsis Metal Homeostasis Knowledge Graph"
+type: software
+authors:
+  - family-names: Taylor
+    given-names: Pierce
+version: "0.1.0"
+date-released: "2026-09-30"
+license: MIT
+repository-code: "https://github.com/piercetaylor/arabidopsis-metal-homeostasis-kg"
+url: "https://github.com/piercetaylor/arabidopsis-metal-homeostasis-kg"
+keywords:
+  - Arabidopsis thaliana
+  - Neo4j
+  - knowledge graph
+  - DAP-seq
+  - yeast two-hybrid
+  - metal homeostasis
+references:
+  - type: article
+    authors:
+      - family-names: Cheng
+        given-names: Chia-Yi
+    title: "Araport11: a complete reannotation of the Arabidopsis thaliana reference genome"
+    doi: 10.1111/tpj.13415
+    year: 2017
+  - type: article
+    authors:
+      - family-names: O'Malley
+        given-names: Ryan C.
+    title: "Cistrome and Epicistrome Features Shape the Regulatory DNA Landscape"
+    doi: 10.1016/j.cell.2016.04.038
+    year: 2016
+  - type: article
+    authors:
+      - family-names: Ovek Baydar
+        given-names: Damla
+    title: "JASPAR 2026: expansion of transcription factor binding profiles and integration of deep learning models"
+    doi: 10.1093/nar/gkaf1209
+    year: 2026
+  - type: dataset
+    title: "InterATOME protein-protein interactions, Public"
+    doi: 10.15454/5I2RO1
+    authors:
+      - family-names: Monachello
+        given-names: Dario
+      - family-names: Lurin
+        given-names: Claire
+    year: 2020
+  - type: article
+    authors:
+      - name: "Arabidopsis Interactome Mapping Consortium"
+    title: "Evidence for Network Evolution in an Arabidopsis Interactome Map"
+    doi: 10.1126/science.1203877
+    year: 2011

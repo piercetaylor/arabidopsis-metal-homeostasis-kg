@@ -1,0 +1,6 @@
+##gff-version 3
+Chr1	Araport11	gene	100	500	.	+	.	ID=AT1G01580;Name=FRO2;symbol=FRO2;biotype=protein_coding;Note=ferric reduction oxidase 2
+Chr2	Araport11	gene	1000	1600	.	-	.	ID=AT2G28160;Name=FIT;symbol=FIT;biotype=protein_coding;Note=FER-like iron deficiency-induced transcription factor
+Chr3	Araport11	gene	3000	3600	.	+	.	ID=AT3G23210;Name=BHLH34;symbol=bHLH34;biotype=protein_coding;Note=basic helix-loop-helix transcription factor 34
+Chr4	Araport11	gene	2000	2700	.	+	.	ID=AT4G19690;Name=IRT1;symbol=IRT1;biotype=protein_coding;Note=iron-regulated transporter 1
+Chr4	Araport11	mRNA	2000	2700	.	+	.	ID=AT4G19690.1;Parent=AT4G19690

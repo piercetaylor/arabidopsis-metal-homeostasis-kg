@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "arabidopsis-metal-homeostasis-kg"
+version = "0.1.0"
+description = "A reproducible Neo4j knowledge graph for Arabidopsis metal-homeostasis networks"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Pierce Taylor" }]
+dependencies = [
+  "neo4j>=5.26,<6",
+  "requests>=2.32,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9",
+  "pytest-cov>=6,<7",
+  "ruff>=0.11,<1",
+]
+
+[project.scripts]
+plant-kg = "plant_kg.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/plant_kg"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers --basetemp=.pytest-tmp"
+testpaths = ["tests"]
+markers = ["integration: requires a running Neo4j instance"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

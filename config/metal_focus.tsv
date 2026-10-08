@@ -1,0 +1,5 @@
+gene_id	metal	evidence_url	scope_note
+AT1G01580	iron	https://amigo.geneontology.org/amigo/term/GO:0006879	query seed; not a comprehensive annotation set
+AT2G28160	iron	https://amigo.geneontology.org/amigo/term/GO:0006879	query seed; not a comprehensive annotation set
+AT3G23210	iron	https://doi.org/10.1104/pp.15.01827	query seed; not a comprehensive annotation set
+AT4G19690	iron	https://amigo.geneontology.org/amigo/term/GO:0006879	query seed; not a comprehensive annotation set

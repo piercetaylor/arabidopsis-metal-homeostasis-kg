@@ -1,0 +1,37 @@
+[araport11]
+dataset_id = "araport11-20241001"
+name = "Araport11 genome annotation"
+version = "2024-10-01"
+url = "https://zenodo.org/records/17371665/files/Araport11_GFF3_genes_transposons.20241001.gff.gz?download=1"
+filename = "Araport11_GFF3_genes_transposons.20241001.gff.gz"
+license = "Public Zenodo record without a stated reuse license; downloaded, not redistributed"
+citation = "10.1111/tpj.13415"
+md5 = "c72c998d26ef28180409370d74229a92"
+
+[dap_seq]
+dataset_id = "geo-gse60141"
+name = "Arabidopsis DAP-seq cistrome"
+version = "GSE60141"
+url = "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE60nnn/GSE60141/suppl/GSE60141_RAW.tar"
+filename = "GSE60141_RAW.tar"
+license = "NCBI GEO public archive terms; downloaded at build time, not redistributed"
+citation = "10.1016/j.cell.2016.04.038"
+
+[jaspar]
+dataset_id = "jaspar-2026-core-arabidopsis"
+name = "JASPAR 2026 CORE Arabidopsis motifs"
+version = "2026"
+url = "https://jaspar.elixir.no/api/v1/matrix/?collection=CORE&tax_group=plants&tax_id=3702&version=latest&page_size=1000"
+filename = "jaspar_arabidopsis.json"
+license = "CC BY 4.0"
+citation = "10.1093/nar/gkaf1209"
+
+[y2h]
+dataset_id = "interatome-1.1"
+name = "InterATOME public Arabidopsis Y2H network"
+version = "1.1"
+url = "https://entrepot.recherche.data.gouv.fr/api/access/datafile/100278"
+filename = "interatome.tsv"
+license = "Licence Ouverte 2.0 (Etalab), CC BY 2.0 compatible"
+citation = "10.15454/5I2RO1"
+md5 = "8748bc11b954531f1516fccd4835fde8"
