@@ -91,6 +91,16 @@ docker compose down
 The full profile can be substantially larger than the fixture and requires network
 access and disk space. Source locations are declared in `config/sources.toml`.
 
+Use an empty Neo4j instance for the full build. Keep fixture and full graphs in
+separate volumes because their shared gene IDs would otherwise mix synthetic
+fixture records with real evidence. After the fixture quick start, switch to a
+separate local Compose project:
+
+```bash
+docker compose down
+docker compose --project-name plant-kg-full up -d --wait
+```
+
 ```bash
 plant-kg download
 plant-kg prepare --profile full
@@ -116,6 +126,9 @@ compare its digest and retrieval date when reproducing an analysis.
 The [full-data verification](docs/verification/full-data-build.md) records a
 successful build with 33,318 genes, 598 motifs, 6,438 Y2H pairs, and 1,172,835
 putative DAP-seq target relationships. All four Cypher validation suites passed.
+
+Stop this instance with `docker compose --project-name plant-kg-full down`.
+Its named data volume is retained for later use.
 
 ## Validation
 
