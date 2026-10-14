@@ -28,7 +28,7 @@ dependencies = [
 [project.optional-dependencies]
 release = [
   "build>=1.2,<2",
-  "twine>=6,<7",
+  "twine>=6,<8",
   "pip-audit>=2.9,<3",
 ]
 dev = [
